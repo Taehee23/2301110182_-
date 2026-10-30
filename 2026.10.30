@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한국 프로 마작 협회</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --navy: #182b3d;
+  --navy-light: #263e53;
+  --gold: #c5a45d;
+  --gold-light: #f5efdf;
+  --bg: #f7f8fa;
+  --text: #252d35;
+  --gray: #78828d;
+  --border: #e6e9ed;
+  --white: #ffffff;
+}
+
+body {
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo",
+               Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HEADER */
+
+header {
+  background: var(--navy);
+  color: white;
+  padding: 0 8%;
+}
+
+.header-top {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ffffff20;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-symbol {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo-text h1 {
+  font-size: 21px;
+  letter-spacing: -0.5px;
+}
+
+.logo-text p {
+  color: #c3cbd2;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.language {
+  display: flex;
+  gap: 7px;
+}
+
+.language button {
+  background: transparent;
+  border: 1px solid #526170;
+  color: #dce1e6;
+  padding: 7px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.language button.active,
+.language button:hover {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+}
+
+nav {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 37px;
+}
+
+nav a {
+  font-size: 14px;
+  color: #e0e5e9;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+/* MAIN VISUAL */
+
+.hero {
+  background: var(--navy-light);
+  color: white;
+  padding: 85px 8% 80px;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero-label {
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.hero h2 {
+  font-size: 43px;
+  line-height: 1.35;
+  margin-bottom: 18px;
+  letter-spacing: -1.5px;
+}
+
+.hero p {
+  color: #cbd3da;
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: var(--navy);
+  padding: 14px 25px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  background: #dfc58d;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 1px solid #82909b;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: var(--navy);
+}
+
+/* COMMON SECTION */
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 75px 25px;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.section-title {
+  font-size: 27px;
+  color: var(--navy);
+  margin-bottom: 9px;
+}
+
+.section-desc {
+  color: var(--gray);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/* CALENDAR */
+
+.calendar-section {
+  background: white;
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 2fr 0.9fr;
+  gap: 25px;
+  align-items: start;
+}
+
+.calendar-box {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  background: white;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.calendar-header h3 {
+  font-size: 22px;
+  color: var(--navy);
+}
+
+.month-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.month-controls button {
+  width: 34px;
+  height: 34px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--navy);
+  font-size: 17px;
+}
+
+.month-controls button:hover {
+  background: var(--navy);
+  color: white;
+}
+
+.weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.weekdays {
+  background: #f4f6f8;
+  border-radius: 5px;
+  padding: 12px 0;
+  margin-bottom: 8px;
+}
+
+.weekdays div {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--gray);
+}
+
+.weekdays div:first-child {
+  color: #d46b6b;
+}
+
+.weekdays div:last-child {
+  color: #6486b3;
+}
+
+.day {
+  min-height: 82px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  padding: 10px 5px;
+  cursor: pointer;
+  text-align: left;
+  background: white;
+  color: var(--text);
+}
+
+.day:nth-child(7n) {
+  border-right: none;
+}
+
+.day:hover {
+  background: #f8f5ed;
+}
+
+.day.empty {
+  cursor: default;
+  background: #fafbfc;
+}
+
+.day.selected {
+  background: var(--gold-light);
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.day-number {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 7px;
+}
+
+.day.event-day .day-number {
+  font-weight: bold;
+  color: var(--navy);
+}
+
+.event-dot {
+  display: block;
+  background: var(--navy);
+  color: white;
+  font-size: 10px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  margin-top: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar-guide {
+  background: var(--navy);
+  color: white;
+  border-radius: 8px;
+  padding: 27px;
+}
+
+.calendar-guide h3 {
+  font-size: 19px;
+  margin-bottom: 20px;
+}
+
+.guide-item {
+  border-top: 1px solid #ffffff25;
+  padding: 17px 0;
+}
+
+.guide-item strong {
+  display: block;
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.guide-item p {
+  font-size: 12px;
+  color: #cbd3da;
+  line-height: 1.7;
+}
+
+.selected-event {
+  background: #f4f6f8;
+  border-radius: 5px;
+  padding: 18px;
+  margin-top: 20px;
+}
+
+.selected-event h4 {
+  font-size: 14px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.selected-event p {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+/* NEWS AND MAP */
+
+.information-section {
+  background: var(--bg);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.info-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.info-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 25px;
+}
+
+.info-card-header h3 {
+  color: var(--navy);
+  font-size: 19px;
+}
+
+.info-card-header span {
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.empty-image {
+  height: 235px;
+  margin: 0 25px;
+  background: #f1f3f5;
+  border: 1px dashed #cbd1d8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a1aab4;
+  font-size: 13px;
+}
+
+.info-card-bottom {
+  padding: 20px 25px 25px;
+}
+
+.info-card-bottom p {
+  color: var(--gray);
+  font-size: 13px;
+}
+
+/* FOOTER */
+
+footer {
+  background: var(--navy);
+  color: #bdc6ce;
+  padding: 35px 8%;
+  font-size: 12px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-inner strong {
+  color: white;
+  font-size: 16px;
+}
+
+.footer-inner p {
+  margin-top: 10px;
+  line-height: 1.9;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  header {
+    padding: 0 4%;
+  }
+
+  nav {
+    gap: 18px;
+    overflow-x: auto;
+  }
+
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .day {
+    min-height: 65px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-top {
+    height: auto;
+    padding: 18px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  nav {
+    height: 50px;
+    gap: 20px;
+  }
+
+  nav a {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 55px 6%;
+  }
+
+  .hero h2 {
+    font-size: 29px;
+  }
+
+  .container {
+    padding: 50px 16px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-box {
+    padding: 12px;
+  }
+
+  .day {
+    min-height: 55px;
+    padding: 5px 2px;
+  }
+
+  .event-dot {
+    font-size: 8px;
+    padding: 2px;
+  }
+
+  .language button {
+    padding: 6px 9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="header-top">
+
+    <div class="logo-area">
+      <div class="logo-symbol">麻</div>
+      <div class="logo-text">
+        <h1>한국 프로 마작 협회</h1>
+        <p>KOREA PROFESSIONAL MAHJONG ASSOCIATION</p>
+      </div>
+    </div>
+
+    <div class="language">
+      <button class="active" onclick="selectLanguage(this)">한국어</button>
+      <button onclick="selectLanguage(this)">English</button>
+      <button onclick="selectLanguage(this)">日本語</button>
+    </div>
+
+  </div>
+
+  <nav>
+    <a href="#home">홈</a>
+    <a href="#calendar">협회 달력</a>
+    <a href="#news">마작 뉴스</a>
+    <a href="#map">전국 마장 지도</a>
+  </nav>
+</header>
+
+
+<!-- MAIN VISUAL -->
+
+<section class="hero" id="home">
+  <div class="hero-content">
+
+    <div class="hero-label">
+      KOREA PROFESSIONAL MAHJONG ASSOCIATION
+    </div>
+
+    <h2>
+      전략과 교류가 만나는 곳,<br>
+      한국 프로 마작 협회
+    </h2>
+
+    <p>
+      마작을 배우고, 함께 즐기고, 새로운 도전을 시작하세요.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn" onclick="showNotice('초보강의 신청')">
+        초보강의 신청 →
+      </button>
+
+      <button class="btn btn-outline"
+        onclick="showNotice('대회 참가신청')">
+        대회 참가신청 →
+      </button>
+
+      <button class="btn btn-outline"
+        onclick="showNotice('마작운세 보기')">
+        마작운세 보기 →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CALENDAR -->
+
+<section class="calendar-section" id="calendar">
+  <div class="container">
+
+    <div class="section-label">OFFICIAL SCHEDULE</div>
+    <h2 class="section-title">협회 공식 달력</h2>
+    <p class="section-desc">
+      한국 프로 마작 협회의 주요 일정과 행사를 확인하세요.
+    </p>
+
+    <div class="calendar-layout">
+
+      <div class="calendar-box">
+
+        <div class="calendar-header">
+          <h3 id="monthTitle">2026년 10월</h3>
+
+          <div class="month-controls">
+            <button onclick="changeMonth(-1)">‹</button>
+            <button onclick="goToday()">오늘</button>
+            <button onclick="changeMonth(1)">›</button>
+          </div>
+        </div>
+
+        <div class="weekdays">
+          <div>일</div>
+          <div>월</div>
+          <div>화</div>
+          <div>수</div>
+          <div>목</div>
+          <div>금</div>
+          <div>토</div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+        </div>
+
+        <div class="selected-event">
+          <h4 id="selectedDate">날짜를 선택해 주세요.</h4>
+          <p id="selectedDescription">
+            날짜를 클릭하면 해당 날짜의 협회 일정을 확인할 수 있습니다.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- CALENDAR GUIDE -->
+
+      <aside class="calendar-guide">
+
+        <h3>달력 이용 안내</h3>
+
+        <div class="guide-item">
+          <strong>01. 일정 확인</strong>
+          <p>
+            달력에 표시된 일정을 통해 협회의
+            주요 행사와 대회 일정을 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <strong>02. 날짜 선택</strong>
+          <p>
+            원하는 날짜를 클릭하면 해당 날짜의
+            상세 일정이 아래에 표시됩니다.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <strong>03. 월 이동</strong>
+          <p>
+            달력 상단의 좌우 버튼을 눌러
+            이전 달과 다음 달을 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <strong>04. 오늘 날짜</strong>
+          <p>
+            '오늘' 버튼을 누르면 현재 날짜가
+            포함된 달력으로 돌아갑니다.
+          </p>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- NEWS AND MAP -->
+
+<section class="information-section">
+  <div class="container">
+
+    <div class="section-label">ASSOCIATION INFORMATION</div>
+    <h2 class="section-title">협회 소식과 정보</h2>
+    <p class="section-desc">
+      한국 마작의 새로운 소식과 전국 마장 정보를 만나보세요.
+    </p>
+
+    <div class="info-grid">
+
+      <!-- NEWS -->
+
+      <article class="info-card" id="news">
+
+        <div class="info-card-header">
+          <h3>마작 뉴스</h3>
+          <span>MAHJONG NEWS</span>
+        </div>
+
+        <div class="empty-image">
+          NEWS IMAGE AREA
+        </div>
+
+        <div class="info-card-bottom">
+          <p>
+            협회의 최신 소식과 마작 관련 뉴스가
+            이곳에 게시될 예정입니다.
+          </p>
+        </div>
+
+      </article>
+
+
+      <!-- MAP -->
+
+      <article class="info-card" id="map">
+
+        <div class="info-card-header">
+          <h3>전국 마장 지도</h3>
+          <span>MAHJONG LOCATION</span>
+        </div>
+
+        <div class="empty-image">
+          MAP IMAGE AREA
+        </div>
+
+        <div class="info-card-bottom">
+          <p>
+            전국의 마장 위치와 관련 정보가
+            이곳에 게시될 예정입니다.
+          </p>
+        </div>
+
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-inner">
+
+    <strong>한국 프로 마작 협회</strong>
+
+    <p>
+      KOREA PROFESSIONAL MAHJONG ASSOCIATION<br>
+      본 홈페이지는 협회 정보 제공을 위한 디자인 시안입니다.<br>
+      © Korea Professional Mahjong Association. All Rights Reserved.
+    </p>
+
+  </div>
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// 언어 버튼 선택 표시
+
+function selectLanguage(button) {
+  document.querySelectorAll('.language button')
+    .forEach(btn => btn.classList.remove('active'));
+
+  button.classList.add('active');
+}
+
+
+// 주요 버튼 안내
+
+function showNotice(name) {
+  alert(name + ' 기능은 준비 중입니다.');
+}
+
+
+// 달력 기능
+
+const today = new Date();
+
+let currentYear = today.getFullYear();
+let currentMonth = today.getMonth();
+let selectedDay = today.getDate();
+
+
+// 예시 일정
+// 실제 협회 일정으로 변경 가능
+
+const events = {
+  8: "협회 정기 모임",
+  15: "마작 초보 강의",
+  22: "프로 마작 대회"
+};
+
+
+function renderCalendar() {
+
+  const grid = document.getElementById("calendarGrid");
+  const title = document.getElementById("monthTitle");
+
+  grid.innerHTML = "";
+
+  title.textContent =
+    currentYear + "년 " + (currentMonth + 1) + "월";
+
+  const firstDay =
+    new Date(currentYear, currentMonth, 1).getDay();
+
+  const lastDate =
+    new Date(currentYear, currentMonth + 1, 0).getDate();
+
+
+  // 달력 앞쪽 빈칸
+
+  for (let i = 0; i < firstDay; i++) {
+
+    const empty = document.createElement("div");
+
+    empty.className = "day empty";
+
+    grid.appendChild(empty);
+  }
+
+
+  // 날짜 생성
+
+  for (let day = 1; day <= lastDate; day++) {
+
+    const cell = document.createElement("button");
+
+    cell.className = "day";
+
+    if (day === selectedDay) {
+      cell.classList.add("selected");
+    }
+
+    if (events[day]) {
+      cell.classList.add("event-day");
+    }
+
+    const number = document.createElement("span");
+
+    number.className = "day-number";
+    number.textContent = day;
+
+    cell.appendChild(number);
+
+
+    // 일정 표시
+
+    if (events[day]) {
+
+      const event = document.createElement("span");
+
+      event.className = "event-dot";
+      event.textContent = events[day];
+
+      cell.appendChild(event);
+    }
+
+
+    // 날짜 선택
+
+    cell.onclick = function() {
+
+      selectedDay = day;
+
+      renderCalendar();
+
+      updateSelectedEvent();
+    };
+
+    grid.appendChild(cell);
+  }
+
+  updateSelectedEvent();
+}
+
+
+// 선택 날짜 정보
+
+function updateSelectedEvent() {
+
+  const dateText =
+    currentYear + "년 " +
+    (currentMonth + 1) + "월 " +
+    selectedDay + "일";
+
+  document.getElementById("selectedDate")
+    .textContent = dateText;
+
+  document.getElementById("selectedDescription")
+    .textContent =
+    events[selectedDay] || "등록된 일정이 없습니다.";
+}
+
+
+// 이전 달 / 다음 달
+
+function changeMonth(amount) {
+
+  currentMonth += amount;
+
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+
+  selectedDay = 1;
+
+  renderCalendar();
+}
+
+
+// 오늘 날짜로 이동
+
+function goToday() {
+
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+  selectedDay = today.getDate();
+
+  renderCalendar();
+}
+
+
+// 처음 달력 표시
+
+renderCalendar();
+
+</script>
+
+</body>
+</html>
