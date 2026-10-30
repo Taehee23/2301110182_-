@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -66,17 +65,21 @@ header {
   gap: 15px;
 }
 
+/* 변경된 부분: 협회 이름 옆의 發 마작 패 */
 .logo-symbol {
   width: 48px;
   height: 48px;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 2px solid #d8c69b;
+  background: #fffdf5;
+  color: #075b3b;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-family: "Noto Serif CJK KR", "Batang", "Malgun Gothic", serif;
+  font-size: 29px;
   font-weight: bold;
+  box-shadow: inset 0 0 0 2px #f0e7d2, 0 2px 5px #00000030;
 }
 
 .logo-text h1 {
@@ -560,6 +563,133 @@ footer {
     padding: 6px 9px;
   }
 }
+
+/* 추가 개선: 접근성, 모달, 모바일 레이아웃 */
+html { scroll-behavior: smooth; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid #d8b96f;
+  outline-offset: 3px;
+}
+.day.today .day-number {
+  color: #b17d1e;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.day:focus-visible { position: relative; z-index: 1; }
+.modal-open { overflow: hidden; }
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: 24px;
+  background: rgba(10, 20, 30, .68);
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal-panel {
+  width: min(100%, 480px);
+  max-height: min(90vh, 760px);
+  overflow-y: auto;
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 34px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: #66717c;
+  font-size: 30px;
+  line-height: 1;
+}
+.modal-kicker {
+  color: #b18d49;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  margin: 0 28px 10px 0;
+}
+.modal-panel h2 {
+  color: var(--navy);
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+.modal-description {
+  color: var(--gray);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.application-form { display: grid; gap: 15px; }
+.application-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: bold;
+}
+.application-form input, .application-form select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 10px 12px;
+  color: var(--text);
+  background: white;
+  font: inherit;
+  font-weight: normal;
+}
+.form-note {
+  color: #8a929b;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 5px; }
+.modal-submit { min-height: 42px; padding: 10px 18px; }
+.btn-cancel {
+  background: white;
+  border-color: var(--border);
+  color: var(--text);
+  padding: 10px 18px;
+}
+.fortune-result {
+  text-align: center;
+  padding: 8px 0 2px;
+}
+.fortune-mark {
+  display: inline-flex;
+  width: 66px;
+  height: 66px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+  background: var(--navy);
+  font-size: 30px;
+  margin-bottom: 17px;
+}
+.fortune-result h3 { color: var(--navy); margin-bottom: 9px; }
+.fortune-result p { color: var(--gray); font-size: 14px; line-height: 1.8; margin-bottom: 22px; }
+@media (max-width: 900px) {
+  .hero h2 { font-size: clamp(30px, 5vw, 40px); }
+  .calendar-box { padding: 18px; }
+}
+@media (max-width: 600px) {
+  .modal-overlay { padding: 14px; }
+  .modal-panel { padding: 28px 20px 22px; }
+  .calendar-header { gap: 10px; }
+  .calendar-header h3 { font-size: 18px; }
+  .month-controls { gap: 5px; }
+  .month-controls button { width: 32px; height: 32px; }
+  .day { min-width: 0; overflow: hidden; }
+  .day-number { font-size: 12px; }
+}
+
 </style>
 </head>
 
@@ -571,7 +701,7 @@ footer {
   <div class="header-top">
 
     <div class="logo-area">
-      <div class="logo-symbol">麻</div>
+      <div class="logo-symbol" aria-label="마작 發 패">發</div>
       <div class="logo-text">
         <h1>한국 프로 마작 협회</h1>
         <p>KOREA PROFESSIONAL MAHJONG ASSOCIATION</p>
@@ -579,9 +709,9 @@ footer {
     </div>
 
     <div class="language">
-      <button class="active" onclick="selectLanguage(this)">한국어</button>
-      <button onclick="selectLanguage(this)">English</button>
-      <button onclick="selectLanguage(this)">日本語</button>
+      <button class="active" aria-pressed="true" onclick="selectLanguage(this)">한국어</button>
+      <button aria-pressed="false" onclick="selectLanguage(this)">English</button>
+      <button aria-pressed="false" onclick="selectLanguage(this)">日本語</button>
     </div>
 
   </div>
@@ -614,16 +744,16 @@ footer {
     </p>
 
     <div class="hero-buttons">
-      <button class="btn" onclick="showNotice('초보강의 신청')">
+      <button type="button" class="btn" onclick="showNotice('초보강의 신청')">
         초보강의 신청 →
       </button>
 
-      <button class="btn btn-outline"
+      <button type="button" class="btn btn-outline"
         onclick="showNotice('대회 참가신청')">
         대회 참가신청 →
       </button>
 
-      <button class="btn btn-outline"
+      <button type="button" class="btn btn-outline"
         onclick="showNotice('마작운세 보기')">
         마작운세 보기 →
       </button>
@@ -808,184 +938,211 @@ footer {
 
 <!-- JAVASCRIPT -->
 
+
+  <div class="modal-overlay" id="actionModal" aria-hidden="true">
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close" id="modalClose" aria-label="닫기">×</button>
+      <div class="modal-kicker">KOREA PROFESSIONAL MAHJONG ASSOCIATION</div>
+      <h2 id="modalTitle">안내</h2>
+      <div id="modalContent"></div>
+    </section>
+  </div>
+
 <script>
-
-// 언어 버튼 선택 표시
-
-function selectLanguage(button) {
-  document.querySelectorAll('.language button')
-    .forEach(btn => btn.classList.remove('active'));
-
-  button.classList.add('active');
-}
-
-
-// 주요 버튼 안내
-
-function showNotice(name) {
-  alert(name + ' 기능은 준비 중입니다.');
-}
-
-
-// 달력 기능
-
-const today = new Date();
-
-let currentYear = today.getFullYear();
-let currentMonth = today.getMonth();
-let selectedDay = today.getDate();
-
-
-// 예시 일정
-// 실제 협회 일정으로 변경 가능
-
-const events = {
-  8: "협회 정기 모임",
-  15: "마작 초보 강의",
-  22: "프로 마작 대회"
-};
-
-
-function renderCalendar() {
-
-  const grid = document.getElementById("calendarGrid");
-  const title = document.getElementById("monthTitle");
-
-  grid.innerHTML = "";
-
-  title.textContent =
-    currentYear + "년 " + (currentMonth + 1) + "월";
-
-  const firstDay =
-    new Date(currentYear, currentMonth, 1).getDay();
-
-  const lastDate =
-    new Date(currentYear, currentMonth + 1, 0).getDate();
-
-
-  // 달력 앞쪽 빈칸
-
-  for (let i = 0; i < firstDay; i++) {
-
-    const empty = document.createElement("div");
-
-    empty.className = "day empty";
-
-    grid.appendChild(empty);
+  // 언어 버튼: 실제 번역 기능이 아닌 선택 상태 표시 기능입니다.
+  function selectLanguage(button) {
+    document.querySelectorAll('.language button').forEach((btn) => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+    });
+    button.classList.add('active');
+    button.setAttribute('aria-pressed', 'true');
   }
 
+  // 안내 모달
+  const modal = document.getElementById('actionModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalContent = document.getElementById('modalContent');
 
-  // 날짜 생성
+  function openModal(title, content) {
+    modalTitle.textContent = title;
+    modalContent.innerHTML = content;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    const firstField = modalContent.querySelector('input, select, button');
+    if (firstField) firstField.focus();
+  }
 
-  for (let day = 1; day <= lastDate; day++) {
+  function closeModal() {
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
 
-    const cell = document.createElement("button");
-
-    cell.className = "day";
-
-    if (day === selectedDay) {
-      cell.classList.add("selected");
+  function showNotice(name) {
+    if (name === '마작운세 보기') {
+      const fortunes = [
+        ['오늘의 한 수', '서두르기보다 흐름을 읽어보세요. 좋은 기회는 차분한 판단에서 찾아옵니다.'],
+        ['오늘의 한 수', '평소와 다른 선택지가 보인다면 한 번 더 살펴보세요. 새로운 가능성이 열릴 수 있습니다.'],
+        ['오늘의 한 수', '오늘은 균형이 중요한 날입니다. 공격과 수비 사이에서 침착함을 유지해 보세요.'],
+        ['오늘의 한 수', '작은 실수가 큰 차이를 만들 수 있습니다. 마지막까지 패를 꼼꼼히 확인하세요.'],
+        ['오늘의 한 수', '좋은 흐름이 다가오고 있습니다. 무리하지 말고 자신만의 속도를 지켜보세요.']
+      ];
+      const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      openModal('오늘의 마작 운세', `
+        <div class="fortune-result">
+          <span class="fortune-mark">麻</span>
+          <h3>${fortune[0]}</h3>
+          <p>${fortune[1]}</p>
+          <button type="button" class="btn modal-submit" onclick="closeModal()">확인</button>
+        </div>
+      `);
+      return;
     }
 
-    if (events[day]) {
-      cell.classList.add("event-day");
+    const isLesson = name === '초보강의 신청';
+    const description = isLesson
+      ? '마작을 처음 접하는 분들을 위한 강의 신청 화면입니다.'
+      : '협회 대회 참가를 위한 신청 화면입니다.';
+    openModal(name, `
+      <p class="modal-description">${description}</p>
+      <form id="applicationForm" class="application-form">
+        <label>이름
+          <input name="applicant" type="text" placeholder="이름을 입력해 주세요" required>
+        </label>
+        <label>연락처
+          <input name="phone" type="tel" placeholder="연락 가능한 전화번호" required>
+        </label>
+        <label>${isLesson ? '희망 강의 일정' : '참가 희망 부문'}
+          ${isLesson
+            ? '<select name="schedule" required><option value="">일정을 선택해 주세요</option><option>평일반</option><option>주말반</option></select>'
+            : '<select name="division" required><option value="">부문을 선택해 주세요</option><option>일반부</option><option>초급부</option><option>상급부</option></select>'}
+        </label>
+        <p class="form-note">※ 현재는 화면 시안입니다. 입력 내용은 서버로 전송되거나 저장되지 않습니다.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-cancel" onclick="closeModal()">취소</button>
+          <button type="submit" class="btn modal-submit">신청 내용 확인</button>
+        </div>
+      </form>
+    `);
+    document.getElementById('applicationForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const applicant = String(formData.get('applicant') || '').trim();
+      alert(`${applicant}님, 입력이 완료되었습니다.
+현재 홈페이지는 시안이므로 신청 정보가 실제 접수되지는 않습니다.`);
+      closeModal();
+    });
+  }
+
+  // 달력 일정: 날짜를 YYYY-MM-DD 형식으로 관리합니다.
+  // 아래 예시는 디자인 확인용 일정이며, 실제 협회 일정에 맞게 수정할 수 있습니다.
+  const events = {
+    '2026-10-31': '협회 정기 모임',
+    '2026-11-08': '마작 초보 강의',
+    '2026-11-15': '프로 마작 대회',
+    '2026-11-22': '월간 교류전'
+  };
+
+  const today = new Date();
+  let currentYear = today.getFullYear();
+  let currentMonth = today.getMonth();
+  let selectedDay = today.getDate();
+
+  function dateKey(year, month, day) {
+    return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  function renderCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    const title = document.getElementById('monthTitle');
+    if (!grid || !title) return;
+
+    grid.innerHTML = '';
+    title.textContent = `${currentYear}년 ${currentMonth + 1}월`;
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day empty';
+      empty.setAttribute('aria-hidden', 'true');
+      grid.appendChild(empty);
     }
 
-    const number = document.createElement("span");
+    for (let day = 1; day <= lastDate; day++) {
+      const key = dateKey(currentYear, currentMonth, day);
+      const eventName = events[key];
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'day';
+      cell.setAttribute('aria-label', `${currentYear}년 ${currentMonth + 1}월 ${day}일${eventName ? ', ' + eventName : ''}`);
 
-    number.className = "day-number";
-    number.textContent = day;
+      if (day === selectedDay) cell.classList.add('selected');
+      if (eventName) cell.classList.add('event-day');
+      if (currentYear === today.getFullYear() && currentMonth === today.getMonth() && day === today.getDate()) {
+        cell.classList.add('today');
+      }
 
-    cell.appendChild(number);
+      const number = document.createElement('span');
+      number.className = 'day-number';
+      number.textContent = day;
+      cell.appendChild(number);
 
+      if (eventName) {
+        const event = document.createElement('span');
+        event.className = 'event-dot';
+        event.textContent = eventName;
+        cell.appendChild(event);
+      }
 
-    // 일정 표시
+      cell.addEventListener('click', () => {
+        selectedDay = day;
+        renderCalendar();
+      });
 
-    if (events[day]) {
-
-      const event = document.createElement("span");
-
-      event.className = "event-dot";
-      event.textContent = events[day];
-
-      cell.appendChild(event);
+      grid.appendChild(cell);
     }
 
-
-    // 날짜 선택
-
-    cell.onclick = function() {
-
-      selectedDay = day;
-
-      renderCalendar();
-
-      updateSelectedEvent();
-    };
-
-    grid.appendChild(cell);
+    updateSelectedEvent();
   }
 
-  updateSelectedEvent();
-}
-
-
-// 선택 날짜 정보
-
-function updateSelectedEvent() {
-
-  const dateText =
-    currentYear + "년 " +
-    (currentMonth + 1) + "월 " +
-    selectedDay + "일";
-
-  document.getElementById("selectedDate")
-    .textContent = dateText;
-
-  document.getElementById("selectedDescription")
-    .textContent =
-    events[selectedDay] || "등록된 일정이 없습니다.";
-}
-
-
-// 이전 달 / 다음 달
-
-function changeMonth(amount) {
-
-  currentMonth += amount;
-
-  if (currentMonth > 11) {
-    currentMonth = 0;
-    currentYear++;
+  function updateSelectedEvent() {
+    const key = dateKey(currentYear, currentMonth, selectedDay);
+    const dateText = `${currentYear}년 ${currentMonth + 1}월 ${selectedDay}일`;
+    document.getElementById('selectedDate').textContent = dateText;
+    document.getElementById('selectedDescription').textContent =
+      events[key] || '등록된 일정이 없습니다.';
   }
 
-  if (currentMonth < 0) {
-    currentMonth = 11;
-    currentYear--;
+  function changeMonth(amount) {
+    const next = new Date(currentYear, currentMonth + amount, 1);
+    currentYear = next.getFullYear();
+    currentMonth = next.getMonth();
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+    selectedDay = Math.min(selectedDay, lastDate);
+    renderCalendar();
   }
 
-  selectedDay = 1;
+  function goToday() {
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
+    selectedDay = today.getDate();
+    renderCalendar();
+  }
+
+  // 모달 닫기: 닫기 버튼, 바깥 영역 클릭, ESC 키 지원
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
+  });
 
   renderCalendar();
-}
-
-
-// 오늘 날짜로 이동
-
-function goToday() {
-
-  currentYear = today.getFullYear();
-  currentMonth = today.getMonth();
-  selectedDay = today.getDate();
-
-  renderCalendar();
-}
-
-
-// 처음 달력 표시
-
-renderCalendar();
-
 </script>
 
 </body>
